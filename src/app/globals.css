@@ -96,8 +96,15 @@ body {
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  cursor: pointer;
+}
+
+footer {
+  position: fixed;
+  bottom: 0px;
+  background-color: #0c1317;
+  width: 30%;
+  height: 65px;
 }
 
 @media (prefers-color-scheme: dark) {

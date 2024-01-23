@@ -1,94 +1,153 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { Chat } from "./lib/definitions";
 
 export default function Home() {
+
+  const data: Chat[] = [
+    {
+      id: 1,
+      name: "Alex",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145867.png",
+      message: "¡Hola! ¿Cómo estás?",
+      date: "2024-01-16T10:30:00"
+    },
+    {
+      id: 2,
+      name: "Sophia",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145859.png",
+      message: "Hola Alex, estoy bien. ¿Y tú?",
+      date: "2024-01-16T10:35:00"
+    },
+    {
+      id: 3,
+      name: "Carlos",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145848.png",
+      message: "¡Hola chicos! ¿Alguien quiere salir esta noche?",
+      date: "2024-01-16T11:00:00"
+    },
+    {
+      id: 4,
+      name: "Sophia",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145859.png",
+      message: "Eso suena genial, Carlos. Contad conmigo.",
+      date: "2024-01-16T11:05:00"
+    },
+    {
+      id: 5,
+      name: "Alex",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145867.png",
+      message: "Yo también me apunto. ¿A dónde iremos?",
+      date: "2024-01-16T11:10:00"
+    },
+    {
+      id: 6,
+      name: "Carlos",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145848.png",
+      message: "Vamos a ese nuevo restaurante en el centro. ¿Os parece?, por mi a las 9 va genial",
+      date: "2024-01-16T11:15:00"
+    },
+    {
+      id: 7,
+      name: "Sophia",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145859.png",
+      message: "Perfecto. Nos vemos allí a las 19:00.",
+      date: "2024-01-16T11:20:00"
+    },
+    {
+      id: 8,
+      name: "Alex",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145867.png",
+      message: "¡Listo! Estaré allí.",
+      date: "2024-01-16T11:25:00"
+    },
+    {
+      id: 9,
+      name: "Sophia",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145859.png",
+      message: "Hasta luego, chicos.",
+      date: "2024-01-16T11:30:00"
+    },
+    {
+      id: 10,
+      name: "Carlos",
+      imageProfile: "https://cdn-icons-png.flaticon.com/512/145/145848.png",
+      message: "Hasta luego. ¡Nos vemos!",
+      date: "2024-01-16T11:35:00"
+    }
+  ];
+  
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
+      <div className={styles.left}>
+        <div className={styles.header}>
+          <a>
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+              src='/user-default.png'
+              alt="user-default"
+              width={40}
+              height={40}
             />
           </a>
+          <div>
+            <a>
+              <Image
+                src='/new-chat-icon.png'
+                alt="new-chat-icon"
+                width={27}
+                height={27}
+              />
+            </a>
+            <a>
+              <Image
+                src='/plus-icon.png'
+                alt="plus-icon"
+                width={27}
+                height={27}
+                className={styles.icons}
+              />
+            </a>
+          </div>
         </div>
+        <div className={styles.chats}>
+          {data.map((chat)=> (
+            <a className={styles.chatPreview}>
+              <img
+                src={chat.imageProfile}
+                alt="image-profile"
+                width={45}
+                height={45}
+              />
+              <div>
+                <h3>{chat.name}</h3>
+                <p className={styles.messageText}>{chat.message}</p>
+              </div>
+            </a>
+          ))
+          }
+        </div>
+        <footer>
+          <hr></hr>
+          <h3>Obtener WhatsApp para Windows</h3>
+        </footer>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
+      <div className={styles.rigth}>
+        <a className={styles.header}>
+          <Image
+            src='/user-default.png'
+            alt="user-default"
+            width={40}
+            height={40}
+          />
+          <div className={styles.userInfo}>
+            <h3>Alex</h3>
+            <p>Haz click aqui para ver mas informacion</p>
+          </div>
         </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <div className={styles.textInput}>
+          <textarea></textarea>
+          <h2>Hola</h2>
+        </div>
       </div>
     </main>
   );

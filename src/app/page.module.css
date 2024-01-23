@@ -1,11 +1,72 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
+  /* justify-content: space-between;
   align-items: center;
   padding: 6rem;
-  min-height: 100vh;
+  min-height: 100vh; */
 }
+
+.header {
+  height: 65px;
+  padding: 0px 15px;
+  background-color: #202c33;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 30%;
+}
+
+.header .icons {
+  margin-left: 15px
+}
+
+.left {
+  overflow-y: auto;
+  background-color: #0c1317;
+}
+
+.chats a {
+  padding: 10px;
+}
+
+.chats a:hover {
+  color: #747474;
+  transition: color 0.3s;
+}
+
+.chatPreview {
+  display: flex;
+  gap: 15px;
+}
+
+.rigth {
+  min-height: 100vh;
+  border-left: 1px solid rgb(160, 160, 160); /* Puedes ajustar el grosor y el color según tus necesidades */
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.rigth .header {
+  justify-content: flex-start;
+  gap: 15;
+  width: 100%;
+}
+
+.userInfo {
+  margin-left: 15px;
+}
+
+.textInput {
+  display: flex;
+  background-color: #747474;
+  height: 65px;
+  position: fixed;
+  bottom: 0px;
+}
+
+/* veo si uso esto */
 
 .description {
   display: inherit;
