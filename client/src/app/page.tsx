@@ -1,8 +1,21 @@
+'use client'
+
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Chat } from "./lib/definitions";
+import { useEffect, useState } from "react";
+import MessageService from "./services/MessageService";
 
 export default function Home() {
+  const [messages, setMessages] = useState<Chat[]>([]);
+
+  useEffect(()=> {
+    MessageService.joinRoom("ABC");
+
+    const unsubscribe = MessageService.subscribeToMessages((nuevoMensaje) => {
+        setMessages((prevMessages):any => [...prevMessages, nuevoMensaje]);
+    });
+}, [])
 
   const data: Chat[] = [
     {
@@ -133,6 +146,9 @@ export default function Home() {
       </div>
       <div className={styles.rigth}>
         <a className={styles.header}>
+          {messages.map((message)=> (
+              <p>{message.message}</p>
+          ))}
           <Image
             src='/user-default.png'
             alt="user-default"
