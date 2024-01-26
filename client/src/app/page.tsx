@@ -8,6 +8,7 @@ import MessageService from "./services/MessageService";
 
 export default function Home() {
   const [messages, setMessages] = useState<Chat[]>([]);
+  const [input, setInput] = useState<String>("Este es un mensaje de prueba, hola");
 
   useEffect(()=> {
     MessageService.joinRoom("ABC");
@@ -17,7 +18,23 @@ export default function Home() {
     });
 }, [])
 
-  const data: Chat[] = [
+const sendMessage = () => {
+  const chatMessage: any = {
+      user: {
+        id: 1,
+        number: 123456,
+        name: "Matias",
+        lastName: "Ortiz",
+        imageProfile: "",
+        description: "",
+      },
+      message: input,
+  }
+MessageService.sendMessages("ABC", chatMessage)
+// setInput("");
+}
+
+  const data: any[] = [
     {
       id: 1,
       name: "Alex",
@@ -146,9 +163,9 @@ export default function Home() {
       </div>
       <div className={styles.rigth}>
         <a className={styles.header}>
-          {messages.map((message)=> (
+          {/* {messages.map((message)=> (
               <p>{message.message}</p>
-          ))}
+          ))} */}
           <Image
             src='/user-default.png'
             alt="user-default"
@@ -162,7 +179,7 @@ export default function Home() {
         </a>
         <div className={styles.textInput}>
           <textarea></textarea>
-          <h2>Hola</h2>
+          <button onClick={()=> sendMessage()}>Hola</button>
         </div>
       </div>
     </main>

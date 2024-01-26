@@ -2,6 +2,7 @@ package com.whatsapp.server.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -26,4 +27,5 @@ public class User {
 
     @Column(name = "description")
     private String description;
+
 }

@@ -1,5 +1,6 @@
 package com.whatsapp.server.dto;
 
+import com.whatsapp.server.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -7,5 +8,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class ChatDto {
     String message;
-    String user;
+    User user;
 }
