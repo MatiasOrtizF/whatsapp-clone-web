@@ -5,6 +5,8 @@ import com.whatsapp.server.repositories.ChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ChatService {
     private final ChatRepository chatRepository;
@@ -16,5 +18,9 @@ public class ChatService {
 
     public Chat saveMessage(Chat chat) {
         return chatRepository.save(chat);
+    }
+
+    public List<Chat> getChatHistoryByRoomId(String roomId) {
+        return chatRepository.findByRoomId(roomId);
     }
 }

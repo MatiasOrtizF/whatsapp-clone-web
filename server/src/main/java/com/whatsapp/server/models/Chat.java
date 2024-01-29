@@ -27,4 +27,7 @@ public class Chat {
 
     @Column(name = "date")
     private Date date;
+
+    @Column(name = "room_id")
+    private String roomId;
 }

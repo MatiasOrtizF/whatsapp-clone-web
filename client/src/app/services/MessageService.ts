@@ -3,6 +3,7 @@ import SockJS from "sockjs-client";
 import { Chat } from "../lib/definitions";
 
 class ChatService {
+
     private stompClient: any
     private messageCallbacks: ((message: Chat) => void)[] = [];
 
@@ -31,9 +32,8 @@ class ChatService {
           this.stompClient.subscribe(`/topic/${roomId}`, (messages: any) => {
             try {
               const messageContent = JSON.parse(messages.body);
-              console.log(messageContent);
                  // Llamar a los callbacks registrados cuando llega un nuevo mensaje
-            this.messageCallbacks.forEach((callback) => {
+              this.messageCallbacks.forEach((callback) => {
                 callback(messageContent);
               });
             } catch (error) {
@@ -45,13 +45,21 @@ class ChatService {
         }
       }
     
-      subscribeToMessages(callback: (message: Chat) => void) {
+      subscribeToMessages(callback: (message: Chat) => void): ()=> void {
         // Registra el callback para ser llamado cuando llegue un nuevo mensaje
         this.messageCallbacks.push(callback);
+         // Retorna una función que puede ser llamada para deshacer la suscripción
+          return () => {
+          // Elimina el callback de la lista cuando se deshace la suscripción
+          const index = this.messageCallbacks.indexOf(callback);
+          if (index !== -1) {
+              this.messageCallbacks.splice(index, 1);
+          }
+      };
       }
 
     sendMessages(roomId: string, chatMessage: Chat) {
-        this.stompClient.send(`/app/chat/${roomId}`, {}, JSON.stringify(chatMessage))
+        this.stompClient.send(`/app/chat/${roomId}/send`, {}, JSON.stringify(chatMessage))
     }
 } 
 

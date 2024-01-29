@@ -8,18 +8,25 @@ import MessageService from "./services/MessageService";
 
 export default function Home() {
   const [messages, setMessages] = useState<Chat[]>([]);
-  const [input, setInput] = useState<String>("Este es un mensaje de prueba, hola");
+  const [input, setInput] = useState("");
 
   useEffect(()=> {
     MessageService.joinRoom("ABC");
 
-    const unsubscribe = MessageService.subscribeToMessages((nuevoMensaje) => {
-        setMessages((prevMessages):any => [...prevMessages, nuevoMensaje]);
+    const unsubscribe = MessageService.subscribeToMessages((message) => {
+      console.log(message);
+      setMessages((prevMessages) => [...prevMessages, message]);
     });
+
+    // Limpieza de la suscripción cuando el componente se desmonta
+    return () => {
+        unsubscribe();
+    };
 }, [])
 
 const sendMessage = () => {
-  const chatMessage: any = {
+  if(input.trim()) {
+    const chatMessage: any = {
       user: {
         id: 1,
         number: 123456,
@@ -28,10 +35,15 @@ const sendMessage = () => {
         imageProfile: "",
         description: "",
       },
-      message: input,
+        message: input,
+      }
+      MessageService.sendMessages("ABC", chatMessage)
+      setInput("");
   }
-MessageService.sendMessages("ABC", chatMessage)
-// setInput("");
+}
+
+const handleInput = (event: any) => {
+  setInput(event.target.value);
 }
 
   const data: any[] = [
@@ -153,8 +165,7 @@ MessageService.sendMessages("ABC", chatMessage)
                 <p className={styles.messageText}>{chat.message}</p>
               </div>
             </a>
-          ))
-          }
+          ))}
         </div>
         <footer>
           <hr></hr>
@@ -162,10 +173,7 @@ MessageService.sendMessages("ABC", chatMessage)
         </footer>
       </div>
       <div className={styles.rigth}>
-        <a className={styles.header}>
-          {/* {messages.map((message)=> (
-              <p>{message.message}</p>
-          ))} */}
+        <div className={styles.header}>
           <Image
             src='/user-default.png'
             alt="user-default"
@@ -176,10 +184,28 @@ MessageService.sendMessages("ABC", chatMessage)
             <h3>Alex</h3>
             <p>Haz click aqui para ver mas informacion</p>
           </div>
-        </a>
+        </div>
+        <div className={styles.chats}>
+          {messages.map((message)=> (
+            <div className={styles.chatPreview}>
+              <div>
+                <h3>{message.name}</h3>
+                <p className={styles.messageText}>{message.message}</p>
+              </div>
+            </div>
+          ))
+          }
+        </div>
+        {/* {messages.map((message)=> (
+          <p key={message.id}>{message.message}</p>
+        ))} */}
         <div className={styles.textInput}>
-          <textarea></textarea>
-          <button onClick={()=> sendMessage()}>Hola</button>
+          <textarea
+            value={input}
+            placeholder= "Escribe un mensaje"
+            onChange={handleInput}
+          />
+          <button onClick={()=> sendMessage()}>Send</button>
         </div>
       </div>
     </main>
